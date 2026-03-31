@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum Condition {
+  EXCELLENT
+  GOOD
+  FAIR
+  POOR
+}
+
+model Miniature {
+  id          Int       @id @default(autoincrement())
+  name        String
+  brand       String
+  description String
+  price       Int
+  imgUrl      String
+  condition   Condition
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
