@@ -24,4 +24,6 @@ model Miniature {
   condition   Condition
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+
+  @@map("miniatures")
 }
