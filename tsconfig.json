@@ -8,6 +8,8 @@
     "isolatedModules": true,
     "declaration": true,
     "removeComments": true,
+    "ignoreDeprecations": "6.0",
+    "strict": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
