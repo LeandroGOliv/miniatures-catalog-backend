@@ -10,7 +10,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
   async signIn(username: string, password: string): Promise<any> {
-    const adminUser = this.configService.get<string>('ADMIN_EMAIL');
+    const adminUser = this.configService.get<string>('ADMIN_USER');
     const adminPasswordHash = this.configService.get<string>(
       'ADMIN_PASSWORD_HASH',
     );

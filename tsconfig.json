@@ -2,13 +2,20 @@
   "compilerOptions": {
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "types": ["node", "jest", "bcrypt"],
+    "types": [
+      "node",
+      "jest",
+      "bcrypt",
+      "passport-local",
+      "passport-jwt",
+      "better-sqlite3",
+      "cookie-parser"
+    ],
     "resolvePackageJsonExports": true,
     "esModuleInterop": true,
     "isolatedModules": true,
     "declaration": true,
     "removeComments": true,
-    "ignoreDeprecations": "6.0",
     "strict": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
