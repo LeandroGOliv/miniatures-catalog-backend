@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { MiniaturesService } from './miniatures.service.js';
 import { CreateMiniatureDto } from './dto/create-miniature.dto.js';
@@ -42,6 +44,7 @@ export class MiniaturesController {
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: string) {
     return this.miniaturesService.remove(+id);
   }

@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMiniatureDto } from './dto/create-miniature.dto';
-import { UpdateMiniatureDto } from './dto/update-miniature.dto';
+import { CreateMiniatureDto } from './dto/create-miniature.dto.js';
+import { UpdateMiniatureDto } from './dto/update-miniature.dto.js';
+import { PrismaService } from '../database/prisma.service.js';
 
 @Injectable()
 export class MiniaturesService {
-  create(createMiniatureDto: CreateMiniatureDto) {
-    return 'This action adds a new miniature';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(createMiniatureDto: CreateMiniatureDto) {
+    return await this.prisma.miniature.create({ data: createMiniatureDto });
   }
 
-  findAll() {
-    return `This action returns all miniatures`;
+  async findAll() {
+    return await this.prisma.miniature.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} miniature`;
+  async findOne(id: number) {
+    return await this.prisma.miniature.findUnique({
+      where: { id },
+    });
   }
 
-  update(id: number, updateMiniatureDto: UpdateMiniatureDto) {
-    return `This action updates a #${id} miniature`;
+  async update(id: number, updateMiniatureDto: UpdateMiniatureDto) {
+    return await this.prisma.miniature.update({
+      where: { id },
+      data: updateMiniatureDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} miniature`;
+  async remove(id: number) {
+    return await this.prisma.miniature.delete({
+      where: { id },
+    });
   }
 }
