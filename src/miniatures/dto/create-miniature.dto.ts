@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { Condition } from '../../generated/prisma/enums.js';
+import { Condition } from '@prisma/client';
 import { Type } from 'class-transformer';
 
 export class CreateMiniatureDto {
