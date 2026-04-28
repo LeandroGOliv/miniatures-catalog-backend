@@ -16,10 +16,10 @@ import { UpdateMiniatureDto } from './dto/update-miniature.dto.js';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('miniatures')
-@UseGuards(AuthGuard('jwt'))
 export class MiniaturesController {
   constructor(private readonly miniaturesService: MiniaturesService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   create(@Body() createMiniatureDto: CreateMiniatureDto) {
     return this.miniaturesService.create(createMiniatureDto);
@@ -35,6 +35,7 @@ export class MiniaturesController {
     return this.miniaturesService.findOne(+id);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -43,6 +44,7 @@ export class MiniaturesController {
     return this.miniaturesService.update(+id, updateMiniatureDto);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: string) {
