@@ -9,7 +9,8 @@
       "passport-local",
       "passport-jwt",
       "better-sqlite3",
-      "cookie-parser"
+      "cookie-parser",
+      "supertest"
     ],
     "resolvePackageJsonExports": true,
     "esModuleInterop": true,
