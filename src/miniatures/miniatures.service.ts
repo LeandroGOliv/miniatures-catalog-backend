@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMiniatureDto } from './dto/create-miniature.dto.js';
 import { UpdateMiniatureDto } from './dto/update-miniature.dto.js';
 import { PrismaService } from '../database/prisma.service.js';
@@ -16,9 +16,15 @@ export class MiniaturesService {
   }
 
   async findOne(id: number) {
-    return await this.prisma.miniature.findUnique({
+    const miniature = await this.prisma.miniature.findUnique({
       where: { id },
     });
+
+    if (!miniature) {
+      throw new NotFoundException(`Miniatura #${id} não encontrada`);
+    }
+
+    return miniature;
   }
 
   async update(id: number, updateMiniatureDto: UpdateMiniatureDto) {
