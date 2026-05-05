@@ -1,4 +1,9 @@
-import 'dotenv/config';
+import { config } from 'dotenv';
+
+const nodeEnv = process.env.NODE_ENV;
+config({ path: `.env.${nodeEnv}` });
+config({ path: '.env' });
+
 import type { PrismaConfig } from 'prisma';
 import { env } from 'prisma/config';
 

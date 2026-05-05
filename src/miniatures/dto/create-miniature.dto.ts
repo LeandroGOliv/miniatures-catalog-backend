@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsString, Min } from 'class-validator';
 import { Condition } from '@prisma/client';
 import { Type } from 'class-transformer';
 
@@ -17,7 +17,7 @@ export class CreateMiniatureDto {
 
   @Type(() => Number)
   @IsNumber()
-  @IsNotEmpty()
+  @Min(0)
   price!: number;
 
   @IsString()

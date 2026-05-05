@@ -6,7 +6,10 @@ import { DatabaseModule } from './database/database.module.js';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: [`.env.${process.env.NODE_ENV}`, '.env'],
+    }),
     DatabaseModule,
     AuthModule,
     MiniaturesModule,
