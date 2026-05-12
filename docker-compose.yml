@@ -1,0 +1,53 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: miniatures-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-miniatures}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-miniatures}
+      POSTGRES_DB: ${POSTGRES_DB:-miniatures}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-miniatures} -d ${POSTGRES_DB:-miniatures}",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - miniatures-network
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ${BUILD_TARGET:-production}
+    container_name: miniatures-api
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-6060}:6060"
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-miniatures}:${POSTGRES_PASSWORD:-miniatures}@postgres:5432/${POSTGRES_DB:-miniatures}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - miniatures-network
+    profiles:
+      - dev
+      - prod
+
+volumes:
+  postgres_data:
+    name: miniatures-postgres-data
+
+networks:
+  miniatures-network:
+    name: miniatures-network
