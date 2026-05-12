@@ -8,7 +8,6 @@
       "bcrypt",
       "passport-local",
       "passport-jwt",
-      "better-sqlite3",
       "cookie-parser",
       "supertest"
     ],
