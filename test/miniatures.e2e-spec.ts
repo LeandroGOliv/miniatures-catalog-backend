@@ -76,7 +76,23 @@ describe('Miniatures (e2e)', () => {
       .get('/miniatures')
       .expect(200);
 
-    expect(res.body.length).toBeGreaterThan(0);
+    expect(res.body.data).toBeDefined();
+    expect(res.body.data.length).toBeGreaterThan(0);
+    expect(res.body.meta).toBeDefined();
+    expect(res.body.meta.total).toBeGreaterThan(0);
+    expect(res.body.meta.page).toBe(1);
+    expect(res.body.meta.limit).toBe(10);
+    expect(res.body.meta.totalPages).toBeGreaterThanOrEqual(1);
+  });
+
+  it('GET /miniatures?page=1&limit=5 → 200, should paginate correctly', async () => {
+    const res = await request(app.getHttpServer())
+      .get('/miniatures?page=1&limit=5')
+      .expect(200);
+
+    expect(res.body.data.length).toBeLessThanOrEqual(5);
+    expect(res.body.meta.page).toBe(1);
+    expect(res.body.meta.limit).toBe(5);
   });
 
   it('GET /miniatures/:id → 200, should return the created miniature', async () => {

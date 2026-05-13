@@ -9,6 +9,9 @@ import {
   UseGuards,
   HttpCode,
   HttpStatus,
+  ParseIntPipe,
+  DefaultValuePipe,
+  Query,
 } from '@nestjs/common';
 import { MiniaturesService } from './miniatures.service.js';
 import { CreateMiniatureDto } from './dto/create-miniature.dto.js';
@@ -26,8 +29,11 @@ export class MiniaturesController {
   }
 
   @Get()
-  findAll() {
-    return this.miniaturesService.findAll();
+  findAll(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
+  ) {
+    return this.miniaturesService.findAll(page, limit);
   }
 
   @Get(':id')
