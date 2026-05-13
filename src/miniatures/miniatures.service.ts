@@ -11,8 +11,29 @@ export class MiniaturesService {
     return await this.prisma.miniature.create({ data: createMiniatureDto });
   }
 
-  async findAll() {
-    return await this.prisma.miniature.findMany();
+  async findAll(page: number, limit: number) {
+    const skip = (page - 1) * limit;
+
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.miniature.findMany({
+        take: limit,
+        skip,
+        orderBy: {
+          id: 'asc',
+        },
+      }),
+      this.prisma.miniature.count(),
+    ]);
+
+    return {
+      data,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   }
 
   async findOne(id: number) {
