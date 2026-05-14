@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty, IsNumber, IsString, Min } from 'class-validator';
-import { Condition } from '../../generated/prisma/client.js';
+import { Condition, Brand } from '../../generated/prisma/client.js';
 import { Type } from 'class-transformer';
 
 export class CreateMiniatureDto {
@@ -9,7 +9,7 @@ export class CreateMiniatureDto {
 
   @IsString()
   @IsNotEmpty()
-  brand!: string;
+  brand!: Brand;
 
   @IsString()
   @IsNotEmpty()

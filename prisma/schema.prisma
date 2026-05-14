@@ -14,10 +14,15 @@ enum Condition {
   POOR
 }
 
+enum Brand {
+  HOTWHEELS
+  MAISTO
+}
+
 model Miniature {
   id          Int       @id @default(autoincrement())
   name        String
-  brand       String
+  brand       Brand
   description String
   price       Int
   imgUrl      String
