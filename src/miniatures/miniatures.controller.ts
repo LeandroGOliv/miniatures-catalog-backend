@@ -17,6 +17,7 @@ import { MiniaturesService } from './miniatures.service.js';
 import { CreateMiniatureDto } from './dto/create-miniature.dto.js';
 import { UpdateMiniatureDto } from './dto/update-miniature.dto.js';
 import { AuthGuard } from '@nestjs/passport';
+import { GetMiniaturesDto } from './dto/get-miniatures.dto.js';
 
 @Controller('miniatures')
 export class MiniaturesController {
@@ -29,11 +30,8 @@ export class MiniaturesController {
   }
 
   @Get()
-  findAll(
-    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
-  ) {
-    return this.miniaturesService.findAll(page, limit);
+  findAll(@Query() query: GetMiniaturesDto) {
+    return this.miniaturesService.findAll(query);
   }
 
   @Get(':id')
