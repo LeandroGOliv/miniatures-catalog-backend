@@ -15,7 +15,7 @@ describe('Miniatures (e2e)', () => {
 
   const createPayload: CreateMiniatureDto = {
     name: 'miniature-test',
-    brand: 'brand-test',
+    brand: 'HOTWHEELS',
     description: 'description-test',
     price: 10,
     imgUrl: 'url-test',
@@ -24,7 +24,7 @@ describe('Miniatures (e2e)', () => {
 
   const editPayload: UpdateMiniatureDto = {
     name: 'miniature-test-edited',
-    brand: 'brand-test-edited',
+    brand: 'MAISTO',
     description: 'description-test-edited',
     price: 20,
     imgUrl: 'url-test-edited',
